@@ -1,0 +1,10 @@
+apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
+plugins:
+- name: MutatingAdmissionWebhook
+  configuration:
+    apiVersion: apiserver.config.k8s.io/v1alpha1
+    kind: WebhookAdmission
+    kubeConfigFile: /home/chaowang/gocode/src/k8s.io/Example-AdmissionWebhook/webhook_admission_config.yaml
+# other admission configs
+# ...

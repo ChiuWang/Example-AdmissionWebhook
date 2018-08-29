@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admission-webhook
+  labels:
+    app: admission-webhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admission-webhook
+  template:
+    metadata:
+      labels:
+        app: admission-webhook
+    spec:
+      nodeSelector:
+        webhook: "true"
+      volumes:
+      - name: secret-volume-certs
+        secret:
+          secretName: webhook-pod-secret
+      containers:
+      - name: admission-webhook-container
+        image: chaowang95/admission-webhook:v0.1
+        imagePullPolicy: IfNotPresent
+        command: ["/admission-webhook", "--v=10", "--alsologtostderr", "--client-ca-file=/etc/secret-volume/ca.crt", "--tls-cert-file=/etc/secret-volume/server.cert", "--tls-private-key-file=/etc/secret-volume/server.key"]
+        volumeMounts:
+        - name: secret-volume-certs
+          readOnly: true
+          mountPath: "/etc/secret-volume"
+        ports:
+          - containerPort: 443

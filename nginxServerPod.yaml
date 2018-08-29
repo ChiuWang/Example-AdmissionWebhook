@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    webhook.fujitsu.com/nginxserver: "true"
+  name: mutating-nginx-pod
+  namespace: default
+  labels:
+    app: mutating-nginx
+spec:
+  containers:
+  - name: mutating-nginx-container
+    image: nginx:1.10.1
+    ports:
+    - containerPort: 80

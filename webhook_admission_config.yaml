@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Config
+users:
+- name: "webhook.default.svc" # replace this with "*" or "<service-name>.<namespace>.svc"
+  user:
+    client-certificate: /home/chaowang/gocode/src/k8s.io/Example-AdmissionWebhook/gencerts/output/client.crt  # this is the client.crt you generated before
+    client-key: /home/chaowang/gocode/src/k8s.io/Example-AdmissionWebhook/gencerts/output/client.key  # this is the client.key you generated before
